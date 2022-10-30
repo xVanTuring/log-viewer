@@ -3,8 +3,14 @@ export interface FormatResult {
         title: string,
         type: "success" | 'info' | 'warning' | 'danger' | '';
     }>;
-    title?: string | null;
-    body?: string | null;
+    title?: {
+        content: string,
+        type: "success" | 'info' | 'warning' | 'danger' | '';
+    } | null;
+    body?: {
+        content: string,
+        type: "success" | 'info' | 'warning' | 'danger' | '';
+    } | null;
     jsonList: Array<{
         data: object;
         title: string;
@@ -15,8 +21,14 @@ export interface FormatResultArray {
         title: string,
         type: "success" | 'info' | 'warning' | 'danger' | '';
     }>;
-    titles: Array<string>;
-    bodys: string[];
+    titles: Array<{
+        content: string,
+        type: "success" | 'info' | 'warning' | 'danger' | '';
+    }>;
+    bodys: Array<{
+        content: string,
+        type: "success" | 'info' | 'warning' | 'danger' | '';
+    }>;
     jsonList: Array<{
         data: object;
         title: string;

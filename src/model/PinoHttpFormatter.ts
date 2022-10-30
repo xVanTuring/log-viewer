@@ -26,7 +26,10 @@ export function pinoHttpFormat(data: Record<string, any> & BaseLogItem & Partial
         type: 'info',
         title: data.req.method
     });
-    result.title = `${data.req.method} ${data.req.url}`;
+    result.title = {
+        content: `${data.req.method} ${data.req.url}`,
+        type: 'success'
+    };
     if (Object.keys(data.req.query).length > 0)
         result.jsonList.push({
             title: 'Req Query',

@@ -12,8 +12,14 @@ export function errorFormat(data: Record<string, any> & BaseLogItem & Partial<Ne
         body: null,
         jsonList: []
     };
-    result.title = data.err.message;
-    result.body = data.err.stack;
+    result.title = {
+        type: 'danger',
+        content: data.err.message!
+    };
+    result.body = {
+        type: 'danger',
+        content: data.err.stack!
+    };
 
     return result;
 }

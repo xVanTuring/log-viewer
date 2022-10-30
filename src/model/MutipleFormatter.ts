@@ -22,20 +22,16 @@ export function format(data: Record<string, any> & BaseLogItem & Partial<NestjsP
     const pinoHttp = pinoHttpFormat(data);
     if (pinoHttp)
         arr.push(pinoHttp);
-    let titleSet = new Set<string>();
-    let bodySet = new Set<string>();
     arr.forEach((item) => {
         result.tags.push(...item.tags);
         result.jsonList.push(...item.jsonList);
         if (item.body) {
-            bodySet.add(item.body);
+            result.bodys.push(item.body);
         }
         if (item.title) {
-            titleSet.add(item.title);
+            result.titles.push(item.title);
         }
     });
-    result.titles = Array.from(titleSet);
-    result.bodys = Array.from(bodySet);
 
     return result;
 }

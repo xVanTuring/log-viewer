@@ -19,7 +19,6 @@ export function baseFormat(data: Record<string, any> & BaseLogItem & Partial<Nes
         title: LogLevelStr(data.level),
         type: dict[LogLevelStr(data.level).toLowerCase()] ?? 'success'
     });
-    // result.tags.push(dayjs(data.time).format());
     if (data.context) {
         result.tags.push({
             title: data.context,
@@ -30,9 +29,15 @@ export function baseFormat(data: Record<string, any> & BaseLogItem & Partial<Nes
         const msg = data.msg.trim();
         const lines = msg.split('\n');
         const title = lines.shift();
-        result.title = title;
+        result.title = {
+            content: title!,
+            type: 'success'
+        };
         if (lines.length > 0) {
-            result.body = lines.join('\n');
+            result.body = {
+                content: lines.join('\n'),
+                type: 'success'
+            };
         }
     }
     result.jsonList.push({
