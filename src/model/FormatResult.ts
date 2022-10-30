@@ -1,5 +1,8 @@
 export interface FormatResult {
-    tags: string[];
+    tags: Array<{
+        title: string,
+        type: "success" | 'info' | 'warning' | 'danger' | '';
+    }>;
     title?: string | null;
     body?: string | null;
     jsonList: Array<{
@@ -8,7 +11,10 @@ export interface FormatResult {
     }>;
 }
 export interface FormatResultArray {
-    tags: string[];
+    tags: Array<{
+        title: string,
+        type: "success" | 'info' | 'warning' | 'danger' | '';
+    }>;
     titles: Array<string>;
     bodys: string[];
     jsonList: Array<{

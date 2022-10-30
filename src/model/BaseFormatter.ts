@@ -2,6 +2,11 @@ import type { BaseLogItem } from "./BaseLogItem";
 import type { FormatResult } from "./FormatResult";
 import { LogLevelStr } from "./LogLevel";
 import type { NestjsPinoItem } from "./NestPinoItem";
+const dict: Record<string, 'info' | 'success' | 'danger' | 'warning'> = {
+    debug: 'info',
+    error: 'danger',
+    warn: 'warning'
+};
 
 export function baseFormat(data: Record<string, any> & BaseLogItem & Partial<NestjsPinoItem>) {
     let result: FormatResult = {
@@ -10,10 +15,16 @@ export function baseFormat(data: Record<string, any> & BaseLogItem & Partial<Nes
         body: null,
         jsonList: []
     };
-    result.tags.push(LogLevelStr(data.level));
+    result.tags.push({
+        title: LogLevelStr(data.level),
+        type: dict[LogLevelStr(data.level).toLowerCase()] ?? 'success'
+    });
     // result.tags.push(dayjs(data.time).format());
     if (data.context) {
-        result.tags.push(data.context);
+        result.tags.push({
+            title: data.context,
+            type: 'info'
+        });
     }
     if (data.msg) {
         const msg = data.msg.trim();

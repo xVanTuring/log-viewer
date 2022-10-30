@@ -4,7 +4,6 @@ import type { NestjsPinoItem } from '@/model/NestPinoItem';
 import { dayjs } from 'element-plus';
 import { computed, reactive } from 'vue';
 import { format as MutipleFormat } from '@/model/MutipleFormatter';
-import Badge from './Badge.vue';
 const props = defineProps<{
     logItem: Record<string, any> & BaseLogItem & Partial<NestjsPinoItem>;
 }>();
@@ -32,18 +31,19 @@ const filteredJsonList = computed(() => {
             <el-container>
                 <el-aside width="120px">
                     <div class="left-info">
-                        <Badge :title="tag" v-for="tag in formatedArr.tags" badge-type="info" />
+                        <el-tag v-for="tag in formatedArr.tags" badge-type="info" :type="tag.type">
+                            {{ tag.title }}
+                        </el-tag>
                     </div>
                 </el-aside>
                 <el-main :style="{ padding: 0, paddingLeft: '8px' }">
-                    <div class="text_line" v-for="title in formatedArr.titles">{{ title }}</div>
+                    <div class="text_line" :class="{ success: false }" v-for="title in formatedArr.titles">{{ title }}</div>
 
                     <div class="detail_line" v-for="body in formatedArr.bodys">
                         {{ body }}
                     </div>
                     <el-checkbox v-model="state.jsonStatus[key]" :label="`Show ${key}`" size="large"
                         v-for="key in jsonToggles" />
-
                     <json-viewer v-for="item in filteredJsonList" :value="item.data">
                     </json-viewer>
                 </el-main>
@@ -82,12 +82,30 @@ const filteredJsonList = computed(() => {
 
 
 .text_line {
-    background-color: #31a34e;
+    background-color: var(--el-color-info);
     padding: 6px 20px;
     border-radius: 6px;
     line-height: 100%;
     color: white;
     margin-bottom: 8px;
+    font-family: 'JetBrains Mono', monospace;
+
+}
+
+.success {
+    background-color: var(--el-color-success)
+}
+
+.info {
+    background-color: var(--el-color-info);
+}
+
+.warning {
+    background-color: var(--el-color-warning);
+}
+
+.error {
+    background-color: var(--el-color-error);
 }
 
 .detail_line {

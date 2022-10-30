@@ -16,10 +16,16 @@ export function pinoHttpFormat(data: Record<string, any> & BaseLogItem & Partial
     };
 
     if (data.statusCode) {
-        result.tags.push(String(data.statusCode));
+        result.tags.push({
+            type: 'info',
+            title: String(data.statusCode)
+        });
     }
 
-    result.tags.push(data.req.method);
+    result.tags.push({
+        type: 'info',
+        title: data.req.method
+    });
     result.title = `${data.req.method} ${data.req.url}`;
     if (Object.keys(data.req.query).length > 0)
         result.jsonList.push({
