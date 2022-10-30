@@ -39,14 +39,13 @@ const filteredJsonList = computed(() => {
                 <el-main :style="{ padding: 0, paddingLeft: '8px' }">
                     <div class="text_line" :class="[title.type]" v-for="title in formatedArr.titles">{{ title.content }}
                     </div>
-                    <el-divider border-style="dashed" />
+                    <el-divider border-style="dashed" v-if="formatedArr.bodys.length !== 0" />
                     <div class="detail_line" :class="[body.type]" v-for="body in formatedArr.bodys">
                         {{ body.content }}
                     </div>
                     <el-divider border-style="dashed" />
                     <el-checkbox v-model="state.jsonStatus[key]" :label="`Show ${key}`" size="large"
                         v-for="key in jsonToggles" />
-                    <el-divider border-style="dashed" />
                     <json-viewer v-for="item in filteredJsonList" :value="item.data">
                     </json-viewer>
                 </el-main>

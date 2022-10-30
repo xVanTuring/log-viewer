@@ -31,7 +31,7 @@ ws.onmessage = (event: MessageEvent<string>) => {
 .slide-enter-from,
 .slide-leave-to {
   opacity: 0;
-  transform: translateX(50px);
+  transform: translateX(-80px);
 }
 .slide-leave-active {
   position: absolute;
