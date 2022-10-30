@@ -13,11 +13,28 @@ ws.onmessage = (event: MessageEvent<string>) => {
 </script>
 <template>
     <el-timeline class="timeline">
-        <LogItem :log-item="item" v-for="item in state.logList" />
+        <TransitionGroup name="slide" tag="div">
+            <LogItem :log-item="item" v-for="item in state.logList" :key="item.time"/>
+        </TransitionGroup>
     </el-timeline>
 </template>
 <style>
 .list .log-item {
     margin-bottom: 14px;
 }
+
+.slide-move,
+.slide-enter-active,
+.slide-leave-active {
+  transition: all 0.5s ease;
+}
+.slide-enter-from,
+.slide-leave-to {
+  opacity: 0;
+  transform: translateX(50px);
+}
+.slide-leave-active {
+  position: absolute;
+}
+
 </style>
