@@ -31,19 +31,22 @@ const filteredJsonList = computed(() => {
             <el-container>
                 <el-aside width="120px">
                     <div class="left-info">
-                        <el-tag v-for="tag in formatedArr.tags" badge-type="info" :type="tag.type">
+                        <el-tag v-for="tag in formatedArr.tags" badge-type="info" effect="dark" :type="tag.type">
                             {{ tag.title }}
                         </el-tag>
                     </div>
                 </el-aside>
                 <el-main :style="{ padding: 0, paddingLeft: '8px' }">
-                    <div class="text_line" :class="{ success: false }" v-for="title in formatedArr.titles">{{ title }}</div>
-
-                    <div class="detail_line" v-for="body in formatedArr.bodys">
-                        {{ body }}
+                    <div class="text_line" :class="[title.type]" v-for="title in formatedArr.titles">{{ title.content }}
                     </div>
+                    <el-divider border-style="dashed" />
+                    <div class="detail_line" :class="[body.type]" v-for="body in formatedArr.bodys">
+                        {{ body.content }}
+                    </div>
+                    <el-divider border-style="dashed" />
                     <el-checkbox v-model="state.jsonStatus[key]" :label="`Show ${key}`" size="large"
                         v-for="key in jsonToggles" />
+                    <el-divider border-style="dashed" />
                     <json-viewer v-for="item in filteredJsonList" :value="item.data">
                     </json-viewer>
                 </el-main>
@@ -104,12 +107,11 @@ const filteredJsonList = computed(() => {
     background-color: var(--el-color-warning);
 }
 
-.error {
+.danger {
     background-color: var(--el-color-error);
 }
 
 .detail_line {
-    background-color: rgb(182, 182, 182);
     padding: 6px 20px;
     border-radius: 6px;
     color: white;
